@@ -26,7 +26,7 @@ def tran(co,nx,ny,i):
     elif rn < 15 and rn > 7:
         x, y = tran(coeff3,nx,ny,i)
     else:
-        x,y  = tran(coeff4,nx,ny,i)
+        x, y  = tran(coeff4,nx,ny,i)
 
     nx[i] = x
     ny[i] = y
