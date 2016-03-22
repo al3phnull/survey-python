@@ -18,23 +18,30 @@ def tran(co,nx,ny,i):
     fy = co[2]*nx[i-1]+co[3]*ny[i-1]+co[5]
     return (fx, fy)
 
-for i in range(N):
-    rn = randint(100) # Generate probability
-    if rn == 0:
-        x, y = tran(coeff1, nx, ny, i)
-    elif rn < 8 and rn != 0:
-        x, y = tran(coeff2, nx, ny, i)
-    elif rn < 15 and rn > 7:
-        x, y = tran(coeff3, nx, ny, i)
-    else:
-        x, y = tran(coeff4, nx, ny, i)
+def simulation():
+    for i in range(N):
+        rn = randint(100) # Generate probability
+        if rn == 0:
+            x, y = tran(coeff1, nx, ny, i)
+        elif rn < 8 and rn != 0:
+            x, y = tran(coeff2, nx, ny, i)
+        elif rn < 15 and rn > 7:
+            x, y = tran(coeff3, nx, ny, i)
+        else:
+            x, y = tran(coeff4, nx, ny, i)
 
-    nx[i] = x
-    ny[i] = y
+        nx[i] = x
+        ny[i] = y
 
-# Plot the fern
-plot(nx, ny, ls='None', marker='.', ms=1, color='c')
-xlim(-3, 3)
-ylim(-0.1, 10)
-savefig("BFernPlot.png")
-show()
+    return nx, ny
+def plot(nx, ny):
+    # Plot the fern
+    plot(nx, ny, ls='None', marker='.', ms=1, color='c')
+    xlim(-3, 3)
+    ylim(-0.1, 10)
+    savefig("BFernPlot.png")
+    show()
+
+def main():
+    nx, ny = simulation()
+    plot(nx, ny)
