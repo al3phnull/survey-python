@@ -10,14 +10,16 @@ Nx = 20
 Ny = 20
 N = int(1e3)
 
-u = zeros((Nx,Ny))
-
-u[0][:] = Ny-1
-u[Ny-1][:] = 0
-
-for i in range(Nx):
-    u[i][0]=Nx-1-i
-    u[i][Nx-1]=Nx-1-i
+def initialise():
+    u = zeros((Nx,Ny))
+    u[0][:] = Ny-1
+    u[Ny-1][:] = 0
+    
+    for i in range(Nx):
+        u[i][0]=Nx-1-i
+        u[i][Nx-1]=Nx-1-i
+        
+    return u
 
 def letter(u):
     for i in range((Nx/2)-Nx/10,(Nx/2)+Nx/10+1):
@@ -28,17 +30,30 @@ def letter(u):
             u[Ny/2][j] = Ny/2
     return u
 
-u = letter(u)
-
-for p in range(N):
-    for i in range(1,Nx-1):
-        for j in range(1,Ny-1):
-            u[i][j] = 0.25*(u[i+1][j]+u[i-1][j]+u[i][j+1]+u[i][j-1])
+def simulation(u):
     u = letter(u)
 
-v = arange(Ny) + 0.5
+    for p in range(N):
+        for i in range(1,Nx-1):
+            for j in range(1,Ny-1):
+                u[i][j] = 0.25*(u[i+1][j]+u[i-1][j]+u[i][j+1]+u[i][j-1])
+        u = letter(u)
+    return u
 
-contour(u, v, colors='k')
-colorbar(imshow(u, cmap = cm.Accent))
-savefig("SolutionPlot.png")
-show()
+def plot(u):
+    v = arange(Ny) + 0.5
+
+    contour(u, v, colors='k')
+    colorbar(imshow(u, cmap = cm.Accent))
+    savefig("SolutionPlot.png")
+    show()
+
+
+def main():
+    u = initialise()
+    u = letter(u)
+    u = simulation(u)
+    plot(u)
+    
+if __name__ == '__main__':
+    main()
