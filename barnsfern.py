@@ -34,7 +34,7 @@ def simulation():
         ny[i] = y
 
     return nx, ny
-def plot(nx, ny):
+def drawplot(nx, ny):
     # Plot the fern
     plot(nx, ny, ls='None', marker='.', ms=1, color='c')
     xlim(-3, 3)
@@ -44,4 +44,4 @@ def plot(nx, ny):
 
 def main():
     nx, ny = simulation()
-    plot(nx, ny)
+    drawplot(nx, ny)
